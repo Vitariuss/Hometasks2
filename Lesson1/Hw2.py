@@ -1,6 +1,6 @@
 n = int(input())
 
-if n % 3 != 0:
+if n % 6 != 0:
     print("wrong number")
 else:
     a = b = n / 6
