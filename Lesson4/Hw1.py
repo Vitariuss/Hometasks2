@@ -14,4 +14,4 @@ for i in range(m):
 
 i = sorted(list(set1.intersection(set2)))
 
-print("Элементы, которые встречаются в обоих множествах:", i)
+print("Elements are", i)
