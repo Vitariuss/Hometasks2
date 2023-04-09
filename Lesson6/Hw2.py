@@ -5,5 +5,3 @@ max_value = int(input())
 for i in range(len(arr)):
     if min_value <= arr[i] <= max_value:
         print(i)
-
-
