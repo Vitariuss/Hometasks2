@@ -1,5 +1,6 @@
 import os
 
+
 def menu():
     print("1. Вывести данные")
     print("2. Добавить запись")
@@ -24,7 +25,6 @@ def add_entry(data):
     data.append((last_name, first_name, middle_name, phone_number))
 
 
-
 def find_entry(data):
     search = input("Введите фамилию, либо имя, либо отчество, либо телефон: ")
     found = [entry for entry in data if search in entry]
@@ -43,7 +43,8 @@ def modify_entry(data):
     first_name = input("Введите имя: ")
     middle_name = input("Введите отчество: ")
     phone_number = input("Введите номер телефона: ")
-    data[data.index(found[index])] = (last_name, first_name, middle_name, phone_number)
+    data[data.index(found[index])] = (
+        last_name, first_name, middle_name, phone_number)
 
 
 def delete_entry(data):
@@ -77,7 +78,6 @@ def load_data_from_file():
     return data
 
 
-
 def main():
     data = []
     while True:
@@ -102,6 +102,6 @@ def main():
         else:
             print("Неверный ввод, пожалуйста, выберите действие из списка")
 
+
 if __name__ == "__main__":
     main()
-
