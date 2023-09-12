@@ -1,40 +1,34 @@
+import time
+from pywinauto.application import Application
+from pynput.keyboard import Key, Controller as KeyboardController
+from pynput.mouse import Button, Controller as MouseController
 import random
 
-def play_game(right):
-    num = random.randint(1, right)
-    print('Добро пожаловать в числовую угадайку')
-    tries = 0
-    while True:
-        n = input("Введите число от 1 до {}: ".format(right))
-        if n.isdigit() and 1 <= int(n) <= right:
-            n = int(n)
-            tries += 1
-            if n > num:
-                print('Ваше число больше загаданного, попробуйте еще разок')        
-            elif n < num:
-                print('Ваше число меньше загаданного, попробуйте еще разок')
-            else:
-                print('Вы угадали, поздравляем!')
-                print('Количество попыток:', tries)
-                break
-        else:
-            print('А может быть все-таки введем целое число от 1 до {}?'.format(right))
+# Запускаем приложение (предполагается, что оно уже запущено)
+app = Application().connect(title_re=".*DeadByDaylight.*")
 
-    return tries
+# Получаем окно приложения
+window = app.window(title_re=".*DeadByDaylight.*")
 
-def play_again():
-    while True:
-        choice = input("Хотите сыграть еще раз? (да/нет): ")
-        if choice.lower() == 'да':
-            return True
-        elif choice.lower() == 'нет':
-            return False
-        else:
-            print("Пожалуйста, ответьте 'да' или 'нет'.")
+keyboard = KeyboardController()
+mouse = MouseController()
 
-right = int(input("Введите правую границу для случайного выбора числа: "))
-play_game(right)
-while play_again():
-    play_game(right)
-    
-print('Спасибо, что играли в числовую угадайку. Еще увидимся...')
+while True:
+    # Проверяем, что окно не свернуто
+    if window.is_visible() and not window.is_minimized():
+        # Устанавливаем фокус на окно
+        window.set_focus()
+        # Передаем рандомное нажатие клавиши W, S, A или D
+        key = random.choice(['w', 's', 'a', 'd'])
+        keyboard.press(key)
+        time.sleep(1)  # Держим нажатой клавишу 1 секунду
+        keyboard.release(key)
+        # Имитируем взмах мыши
+        mouse.move(random.randint(-50, 50), random.randint(-50, 50))
+        # Имитируем нажатие левой кнопки мыши
+        mouse.click(Button.left, 1)
+        # Ждем 1 секунду перед следующим нажатием
+        time.sleep(5)
+    else:
+        # Если окно свернуто, ждем немного и проверяем снова
+        time.sleep(1)
